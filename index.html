@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>20 готовых n8n-автоматизаций — импорт и работает</title>
-<meta name="description" content="Пакет из 20 готовых n8n workflow: AI-сценарии, мониторинг, лиды, отчёты, бэкапы. Импорт за 2 минуты. Экономь десятки часов сборки.">
+<meta name="description" content="20 готовых n8n workflow: AI-сценарии, мониторинг, лидогенерация, отчёты. Импорт за 2 минуты. Экономия 60+ часов сборки.">
 <style>
 :root {
   --bg: #0B0B14; --surface: rgba(255,255,255,.05); --border: rgba(255,255,255,.1);
@@ -15,26 +15,37 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height:1.6; }
 .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
-.hero { text-align:center; padding: 80px 0 50px;
+.lang-switch { display:flex; gap:8px; justify-content:center; padding-top:18px; position:sticky; top:0; z-index:10; background:rgba(11,11,20,.85); backdrop-filter:blur(8px); padding-bottom:10px; }
+.lang-btn { background:var(--surface); border:1px solid var(--border); color:var(--dim); border-radius:20px;
+  padding:6px 18px; cursor:pointer; font-size:13px; font-weight:600; font-family:inherit; }
+.lang-btn.active { background:var(--grad); color:#0B0B14; border-color:transparent; }
+.hero { text-align:center; padding: 50px 0 40px;
   background: radial-gradient(ellipse 70% 60% at 50% -10%, rgba(78,205,196,.2), transparent); }
 .kicker { letter-spacing:.25em; text-transform:uppercase; font-size:13px; font-weight:700;
   background: var(--grad-gold); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-h1 { font-size: clamp(32px, 6vw, 58px); line-height:1.15; margin: 14px 0;
+h1 { font-size: clamp(30px, 5.5vw, 54px); line-height:1.15; margin: 14px 0;
   background: var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-.sub { color: var(--dim); font-size: clamp(15px, 2vw, 19px); max-width: 640px; margin: 0 auto; }
+.sub { color: var(--dim); font-size: clamp(15px, 2vw, 19px); max-width: 660px; margin: 0 auto; }
+.pain { max-width:640px; margin: 26px auto 0; background:rgba(255,107,157,.08); border:1px solid rgba(255,107,157,.25);
+  border-radius:14px; padding:16px 22px; font-size:15px; color:#FFB8CF; }
 .badge { display:inline-block; margin-top:18px; background: var(--surface); border:1px solid var(--border);
   border-radius:30px; padding:8px 20px; font-size:14px; color:var(--dim); }
-.btn { display:inline-block; margin-top:34px; background: var(--grad); color:#0B0B14; text-decoration:none;
+.btn { display:inline-block; margin-top:30px; background: var(--grad); color:#0B0B14; text-decoration:none;
   font-size:20px; font-weight:700; padding:18px 54px; border-radius:50px; transition: transform .2s, box-shadow .2s;
   box-shadow: 0 10px 40px rgba(78,205,196,.35); }
 .btn:hover { transform: translateY(-3px); box-shadow: 0 16px 50px rgba(78,205,196,.5); }
 .price-note { margin-top:14px; color:var(--dim); font-size:13px; }
-section { padding: 50px 0; }
+section { padding: 46px 0; }
 h2 { font-size: clamp(24px, 4vw, 34px); margin-bottom: 26px; text-align:center; }
 .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:14px; }
 .card { background: var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px 22px; }
 .card b { display:block; margin-bottom:6px; font-size:16px; }
 .card span { color:var(--dim); font-size:14px; }
+.value-box { display:grid; grid-template-columns: repeat(3,1fr); gap:14px; max-width:820px; margin:0 auto; }
+.value { text-align:center; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:22px 14px; }
+.value .num { font-size:clamp(26px,4vw,40px); font-weight:700; font-family:'Segoe UI'; background:var(--grad);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.value .lbl { color:var(--dim); font-size:13px; margin-top:6px; }
 .checks { max-width: 620px; margin: 0 auto; }
 .checks li { list-style:none; padding: 10px 0 10px 38px; position:relative; border-bottom:1px solid var(--border); font-size:16px; }
 .checks li:before { content:"✔"; position:absolute; left:4px; color:#4ECDC4; font-weight:700; }
@@ -50,65 +61,232 @@ h2 { font-size: clamp(24px, 4vw, 34px); margin-bottom: 26px; text-align:center; 
 .cta { text-align:center; padding: 60px 0 90px;
   background: radial-gradient(ellipse 60% 80% at 50% 110%, rgba(124,108,255,.15), transparent); }
 footer { text-align:center; color:var(--dim); font-size:13px; padding: 26px 0; border-top:1px solid var(--border); }
-@media(max-width:600px){ .hero{padding:50px 0 30px} .btn{width:100%;} }
+.lang-block { display:none; }
+.lang-block.active { display:block; }
+@media(max-width:600px){ .hero{padding:30px 0 20px} .btn{width:100%;} .value-box{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
 
-<div class="hero wrap">
-  <div class="kicker">N8N · АВТОМАТИЗАЦИЯ БИЗНЕСА БЕЗ КОДА</div>
-  <h1>20 готовых workflow</h1>
-  <p class="sub">Хватит собирать типовые сценарии по 4 часа. Скачай пакет, импортируй JSON в n8n, подключи свои аккаунты — и автоматизация работает.</p>
-  <span class="badge">⚡ Импорт за 2 минуты · AI + мониторинг + продажи</span><br>
-  <a class="btn" href="https://t.me/Neo_file_sharing_bot">Купить за $29</a>
-  <p class="price-note">Оплата Telegram Stars · Мгновенная автоматическая выдача файла</p>
+<div class="lang-switch">
+  <button class="lang-btn active" onclick="setLang('ru', this)">Русский</button>
+  <button class="lang-btn" onclick="setLang('ua', this)">Українська</button>
+  <button class="lang-btn" onclick="setLang('en', this)">English</button>
 </div>
 
-<section class="wrap">
-  <h2>Что внутри пакета</h2>
-  <div class="grid">
-    <div class="card"><b>🤖 AI-сценарии (4 шт)</b><span>Суммаризатор статей, генератор постов, модерация комментариев, бизнес-отчёты через GPT</span></div>
-    <div class="card"><b>📊 Мониторинг (5 шт)</b><span>Цены конкурентов, uptime сайта, негативные отзывы, курсы валют, трек-номера посылок</span></div>
-    <div class="card"><b>🎯 Продажи (4 шт)</b><span>Лиды с сайта в таблицу + алерт, заявки через Telegram-бота, синхронизация с CRM, welcome-цепочка</span></div>
-    <div class="card"><b>📅 Рутина (7 шт)</b><span>Бэкапы на облако, дайджесты новостей и погоды, напоминания о ДР, автопостинг RSS, автоответы</span></div>
+<!-- ============ RU ============ -->
+<div class="lang-block active" id="lang-ru">
+  <div class="hero wrap">
+    <div class="kicker">N8N · АВТОМАТИЗАЦИЯ БИЗНЕСА БЕЗ КОДА</div>
+    <h1>20 готовых workflow для n8n</h1>
+    <p class="sub">Ты покупаешь не файлы — ты покупаешь <b>60+ сэкономленных часов</b>. Каждый сценарий уже собран, протестирован и назван по-человечески: импортнул → подключил аккаунты → работает.</p>
+    <div class="pain">Без этого пакета: 20 сценариев × 3–6 часов сборки = <b>1,5–2 недели работы</b>. С пакетом: <b>40 минут</b> на импорт и настройку.</div>
+    <span class="badge">⚡ AI · Мониторинг · Лидогенерация · Отчёты · Бэкапы</span><br>
+    <a class="btn" href="https://t.me/Neo_file_sharing_bot">Купить за 2000 Stars ≈ $29</a>
+    <p class="price-note">Оплата Telegram Stars · Мгновенная автоматическая выдача · 24/7</p>
   </div>
-</section>
 
-<section class="wrap">
-  <h2>Каждый workflow — это</h2>
-  <ul class="checks">
-    <li>Готовая логика соединений — ничего собирать не нужно</li>
-    <li>Понятные названия нод на русском</li>
-    <li>Импорт в n8n за 2 минуты: Workflows → Import from File</li>
-    <li>Лёгкая адаптация: меняешь URL и подключаешь свои аккаунты</li>
-    <li>Экономия 3–6 часов сборки на каждом сценарии</li>
-  </ul>
-</section>
+  <section class="wrap">
+    <h2>Что конкретно ты получаешь</h2>
+    <div class="grid">
+      <div class="card"><b>🤖 4 AI-сценария</b><span>Суммаризатор статей, генератор постов, модерация спама, бизнес-отчёты через GPT — ноды уже настроены под gpt-4o-mini</span></div>
+      <div class="card"><b>📊 5 систем мониторинга</b><span>Цены конкурентов, uptime сайта, негативные отзывы, курсы валют, трек-номера — узнаёшь о проблеме раньше клиентов</span></div>
+      <div class="card"><b>🎯 4 инструмента продаж</b><span>Лиды с сайта в таблицу + мгновенный алерт, заявки через Telegram-бота, синхронизация с CRM, welcome-письма</span></div>
+      <div class="card"><b>📅 7 сценариев рутины</b><span>Бэкапы на облако, дайджесты новостей и погоды, напоминания о ДР, автопостинг RSS, автоответы клиентам</span></div>
+    </div>
+  </section>
 
-<section class="wrap">
-  <h2>Как запустить — 3 шага</h2>
-  <ol class="steps">
-    <li>Импортируй JSON-файл в n8n (Workflows → Import from File)</li>
-    <li>Подключи свои аккаунты (Telegram, Google, OpenAI) — n8n сам подскажет</li>
-    <li>Активируй — автоматизация работает 24/7</li>
-  </ol>
-</section>
+  <section class="wrap">
+    <h2>Почему это выгодно</h2>
+    <div class="value-box">
+      <div class="value"><div class="num">60+</div><div class="lbl">часов сборки экономишь</div></div>
+      <div class="value"><div class="num">~$500+</div><div class="lbl">стоит такая работа у фрилансера</div></div>
+      <div class="value"><div class="num">40 мин</div><div class="lbl">занимает запуск всего пакета</div></div>
+    </div>
+  </section>
 
-<section class="wrap">
-  <h2>Частые вопросы</h2>
-  <div class="faq">
-    <details><summary>Подойдёт ли для моего n8n?</summary><p>Да, для облачного и self-hosted n8n версии 1.x. Воркфлоу используют стандартные ноды: Telegram, Google Sheets/Drive/Gmail, HTTP Request, OpenAI, Webhook.</p></details>
-    <details><summary>Я не программист — разберусь?</summary><p>Да. Все ноды названы по-русски, логика линейная. В комплекте инструкция по установке и адаптации URL под свои сервисы.</p></details>
-    <details><summary>Как проходит оплата и получение файла?</summary><p>Жмёте «Купить» → бот покажет карту для перевода → отправляете скриншот оплаты → бот мгновенно выдаёт архив. Всё в Telegram, 24/7.</p></details>
-    <details><summary>Что если workflow не подойдёт?</summary><p>Напишите в Telegram — разберём вашу задачу и подскажем, как адаптировать сценарий.</p></details>
+  <section class="wrap">
+    <h2>Каждый workflow — это</h2>
+    <ul class="checks">
+      <li>Готовая логика соединений — ничего собирать не нужно</li>
+      <li>Понятные названия нод на русском — разберётся любой</li>
+      <li>Импорт в n8n за 2 минуты: Workflows → Import from File</li>
+      <li>Лёгкая адаптация: меняешь URL и подключаешь свои аккаунты</li>
+      <li>Инструкция по установке и настройке в комплекте</li>
+    </ul>
+  </section>
+
+  <section class="wrap">
+    <h2>Как запустить — 3 шага</h2>
+    <ol class="steps">
+      <li>Импортируй JSON в n8n (Workflows → Import from File)</li>
+      <li>Подключи свои аккаунты (Telegram, Google, OpenAI) — n8n сам подскажет</li>
+      <li>Активируй — автоматизация работает 24/7</li>
+    </ol>
+  </section>
+
+  <section class="wrap">
+    <h2>Частые вопросы</h2>
+    <div class="faq">
+      <details><summary>Подойдёт для моего n8n?</summary><p>Да: облачный и self-hosted n8n 1.x. Стандартные ноды — Telegram, Google Sheets/Drive/Gmail, HTTP Request, OpenAI, Webhook.</p></details>
+      <details><summary>Я не программист — разберусь?</summary><p>Да. Ноды названы по-русски, логика линейная, в комплекте пошаговая инструкция и описание каждой автоматизации.</p></details>
+      <details><summary>Почему Stars, а не карта?</summary><p>Stars — встроенная оплата Telegram: безопасно, анонимно, в два клика, без ввода карты.</p></details>
+      <details><summary>Как быстро получу файл?</summary><p>Мгновенно после оплаты бот сам пришлёт архив. Автоматически, 24/7.</p></details>
+      <details><summary>Если что-то не заведётся?</summary><p>Напиши в Telegram — поможем адаптировать сценарий под твою задачу.</p></details>
+    </div>
+  </section>
+
+  <div class="cta">
+    <a class="btn" href="https://t.me/Neo_file_sharing_bot">Скачать пакет за 2000 Stars ≈ $29</a>
+    <p class="price-note">Меньше цены одного часа работы фрилансера — экономия на годы вперёд</p>
   </div>
-</section>
-
-<div class="cta">
-  <a class="btn" href="https://t.me/Neo_file_sharing_bot">Скачать пакет за $29</a>
-  <p class="price-note">Оплата Telegram Stars · Мгновенная автоматическая выдача файла</p>
 </div>
 
-<footer>© 2026 · 20 n8n Automations Pack · Поддержка: Telegram</footer>
+<!-- ============ UA ============ -->
+<div class="lang-block" id="lang-ua">
+  <div class="hero wrap">
+    <div class="kicker">N8N · АВТОМАТИЗАЦІЯ БІЗНЕСУ БЕЗ КОДУ</div>
+    <h1>20 готових workflow для n8n</h1>
+    <p class="sub">Ти купуєш не файли — ти купуєш <b>60+ збережених годин</b>. Кожен сценарій вже зібрано, протестовано та названо по-людськи: імпортував → підключив акаунти → працює.</p>
+    <div class="pain">Без цього паку: 20 сценаріїв × 3–6 годин збірки = <b>1,5–2 тижні роботи</b>. З паком: <b>40 хвилин</b> на імпорт і налаштування.</div>
+    <span class="badge">⚡ AI · Моніторинг · Лідогенерація · Звіти · Бекапи</span><br>
+    <a class="btn" href="https://t.me/Neo_file_sharing_bot">Купити за 2000 Stars ≈ $29</a>
+    <p class="price-note">Оплата Telegram Stars · Миттєва автоматична видача · 24/7</p>
+  </div>
+
+  <section class="wrap">
+    <h2>Що конкретно ти отримуєш</h2>
+    <div class="grid">
+      <div class="card"><b>🤖 4 AI-сценарії</b><span>Сумаризатор статей, генератор постів, модерація спаму, бізнес-звіти через GPT — ноди вже налаштовані під gpt-4o-mini</span></div>
+      <div class="card"><b>📊 5 систем моніторингу</b><span>Ціни конкурентів, uptime сайту, негативні відгуки, курси валют, трек-номери — дізнаєшся про проблему раніше за клієнтів</span></div>
+      <div class="card"><b>🎯 4 інструменти продажів</b><span>Ліди з сайту в таблицю + миттєвий алерт, заявки через Telegram-бота, синхронізація з CRM, welcome-листи</span></div>
+      <div class="card"><b>📅 7 сценаріїв рутини</b><span>Бекапи на хмару, дайджести новин і погоди, нагадування про ДР, автопостинг RSS, автовідповіді клієнтам</span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Чому це вигідно</h2>
+    <div class="value-box">
+      <div class="value"><div class="num">60+</div><div class="lbl">годин збірки економиш</div></div>
+      <div class="value"><div class="num">~$500+</div><div class="lbl">коштує така робота у фрилансера</div></div>
+      <div class="value"><div class="num">40 хв</div><div class="lbl">займає запуск усього паку</div></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Кожен workflow — це</h2>
+    <ul class="checks">
+      <li>Готова логіка з'єднань — нічого збирати не потрібно</li>
+      <li>Зрозумілі назви вузлів — розбереться будь-хто</li>
+      <li>Імпорт в n8n за 2 хвилини: Workflows → Import from File</li>
+      <li>Легка адаптація: змінюєш URL і підключаєш свої акаунти</li>
+      <li>Інструкція зі встановлення та налаштування в комплекті</li>
+    </ul>
+  </section>
+
+  <section class="wrap">
+    <h2>Як запустити — 3 кроки</h2>
+    <ol class="steps">
+      <li>Імпортуй JSON в n8n (Workflows → Import from File)</li>
+      <li>Підключи свої акаунти (Telegram, Google, OpenAI) — n8n сам підкаже</li>
+      <li>Активуй — автоматизація працює 24/7</li>
+    </ol>
+  </section>
+
+  <section class="wrap">
+    <h2>Часті питання</h2>
+    <div class="faq">
+      <details><summary>Підійде для мого n8n?</summary><p>Так: хмарний і self-hosted n8n 1.x. Стандартні вузли — Telegram, Google Sheets/Drive/Gmail, HTTP Request, OpenAI, Webhook.</p></details>
+      <details><summary>Я не програміст — розберуся?</summary><p>Так. Вузли названі зрозуміло, логіка лінійна, в комплекті покрокова інструкція та опис кожної автоматизації.</p></details>
+      <details><summary>Чому Stars, а не карта?</summary><p>Stars — вбудована оплата Telegram: безпечно, анонімно, у два кліки, без введення картки.</p></details>
+      <details><summary>Як швидко отримаю файл?</summary><p>Миттєво після оплати бот сам надішле архів. Автоматично, 24/7.</p></details>
+      <details><summary>Якщо щось не заведеться?</summary><p>Напиши в Telegram — допоможемо адаптувати сценарій під твоє завдання.</p></details>
+    </div>
+  </section>
+
+  <div class="cta">
+    <a class="btn" href="https://t.me/Neo_file_sharing_bot">Завантажити пак за 2000 Stars ≈ $29</a>
+    <p class="price-note">Менше за ціну однієї години роботи фрилансера — економія на роки вперед</p>
+  </div>
+</div>
+
+<!-- ============ EN ============ -->
+<div class="lang-block" id="lang-en">
+  <div class="hero wrap">
+    <div class="kicker">N8N · NO-CODE BUSINESS AUTOMATION</div>
+    <h1>20 ready-made n8n workflows</h1>
+    <p class="sub">You're not buying files — you're buying <b>60+ saved hours</b>. Every scenario is pre-built, tested and clearly named: import → connect your accounts → done.</p>
+    <div class="pain">Without this pack: 20 scenarios × 3–6 hours of building = <b>1.5–2 weeks of work</b>. With the pack: <b>40 minutes</b> to import and configure everything.</div>
+    <span class="badge">⚡ AI · Monitoring · Lead Gen · Reports · Backups</span><br>
+    <a class="btn" href="https://t.me/Neo_file_sharing_bot">Buy for 2000 Stars ≈ $29</a>
+    <p class="price-note">Pay with Telegram Stars · Instant automatic delivery · 24/7</p>
+  </div>
+
+  <section class="wrap">
+    <h2>Exactly what you get</h2>
+    <div class="grid">
+      <div class="card"><b>🤖 4 AI scenarios</b><span>Article summarizer, post generator, spam moderation, GPT-powered business reports — pre-configured for gpt-4o-mini</span></div>
+      <div class="card"><b>📊 5 monitoring systems</b><span>Competitor prices, website uptime, negative reviews, exchange rates, parcel tracking — know about problems before your customers do</span></div>
+      <div class="card"><b>🎯 4 sales tools</b><span>Website leads to spreadsheet + instant alert, orders via Telegram bot, CRM sync, welcome emails</span></div>
+      <div class="card"><b>📅 7 routine scenarios</b><span>Cloud backups, news & weather digests, birthday reminders, RSS auto-posting, customer auto-replies</span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Why it's a steal</h2>
+    <div class="value-box">
+      <div class="value"><div class="num">60+</div><div class="lbl">hours of building saved</div></div>
+      <div class="value"><div class="num">~$500+</div><div class="lbl">freelancers charge for this</div></div>
+      <div class="value"><div class="num">40 min</div><div class="lbl">to launch the entire pack</div></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Every workflow includes</h2>
+    <ul class="checks">
+      <li>Pre-built connection logic — nothing to assemble</li>
+      <li>Clear node names — anyone can understand it</li>
+      <li>2-minute import into n8n: Workflows → Import from File</li>
+      <li>Easy customization: swap URLs, connect your own accounts</li>
+      <li>Setup & configuration guide included</li>
+    </ul>
+  </section>
+
+  <section class="wrap">
+    <h2>Launch in 3 steps</h2>
+    <ol class="steps">
+      <li>Import the JSON into n8n (Workflows → Import from File)</li>
+      <li>Connect your accounts (Telegram, Google, OpenAI) — n8n guides you</li>
+      <li>Activate — your automation runs 24/7</li>
+    </ol>
+  </section>
+
+  <section class="wrap">
+    <h2>FAQ</h2>
+    <div class="faq">
+      <details><summary>Will it work with my n8n?</summary><p>Yes: cloud and self-hosted n8n 1.x. Standard nodes only — Telegram, Google Sheets/Drive/Gmail, HTTP Request, OpenAI, Webhook.</p></details>
+      <details><summary>I'm not a developer — can I handle it?</summary><p>Yes. Nodes are clearly named, the logic is linear, and the pack includes a step-by-step guide plus a description of every automation.</p></details>
+      <details><summary>Why Stars instead of a card?</summary><p>Stars is Telegram's built-in payment: secure, private, two clicks, no card details needed.</p></details>
+      <details><summary>How fast do I get the files?</summary><p>Instantly — the bot delivers the archive automatically right after payment, 24/7.</p></details>
+      <details><summary>What if something doesn't work?</summary><p>Message us on Telegram — we'll help you adapt any scenario to your needs.</p></details>
+    </div>
+  </section>
+
+  <div class="cta">
+    <a class="btn" href="https://t.me/Neo_file_sharing_bot">Get the pack for 2000 Stars ≈ $29</a>
+    <p class="price-note">Less than one hour of a freelancer's rate — saves you years of routine</p>
+  </div>
+</div>
+
+<footer>© 2026 · 20 n8n Automations Pack · Support: Telegram</footer>
+
+<script>
+function setLang(lang, btn) {
+  document.querySelectorAll('.lang-block').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('lang-' + lang).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
 </body>
 </html>
