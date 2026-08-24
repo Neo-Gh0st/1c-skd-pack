@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 готовых СКД-отчётов для 1С — вставь и работай</title>
+<meta name="description" content="Пакет из 10 production-ready схем компоновки данных для 1С:Предприятие 8.3. Продажи, остатки, дебиторка, ABC-анализ, ДДС. Подключение за 2 минуты.">
+<style>
+:root {
+  --bg: #0B0B14; --surface: rgba(255,255,255,.05); --border: rgba(255,255,255,.1);
+  --text: #F2F2FA; --dim: #A5A3C0;
+  --grad: linear-gradient(135deg,#7C6CFF,#FF6B9D);
+  --grad-gold: linear-gradient(135deg,#FFC75F,#FF6B9D);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height:1.6; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+.hero { text-align:center; padding: 80px 0 50px;
+  background: radial-gradient(ellipse 70% 60% at 50% -10%, rgba(124,108,255,.22), transparent); }
+.kicker { letter-spacing:.25em; text-transform:uppercase; font-size:13px; font-weight:700;
+  background: var(--grad-gold); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+h1 { font-size: clamp(32px, 6vw, 58px); line-height:1.15; margin: 14px 0;
+  background: var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.sub { color: var(--dim); font-size: clamp(15px, 2vw, 19px); max-width: 640px; margin: 0 auto; }
+.badge { display:inline-block; margin-top:18px; background: var(--surface); border:1px solid var(--border);
+  border-radius:30px; padding:8px 20px; font-size:14px; color:var(--dim); }
+.btn { display:inline-block; margin-top:34px; background: var(--grad); color:#fff; text-decoration:none;
+  font-size:20px; font-weight:700; padding:18px 54px; border-radius:50px; transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 10px 40px rgba(124,108,255,.4); }
+.btn:hover { transform: translateY(-3px); box-shadow: 0 16px 50px rgba(124,108,255,.55); }
+.price-note { margin-top:14px; color:var(--dim); font-size:13px; }
+section { padding: 50px 0; }
+h2 { font-size: clamp(24px, 4vw, 34px); margin-bottom: 26px; text-align:center; }
+.grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:14px; }
+.card { background: var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px 22px; }
+.card b { display:block; margin-bottom:6px; font-size:16px; }
+.card span { color:var(--dim); font-size:14px; }
+.checks { max-width: 620px; margin: 0 auto; }
+.checks li { list-style:none; padding: 10px 0 10px 38px; position:relative; border-bottom:1px solid var(--border); font-size:16px; }
+.checks li:before { content:"✔"; position:absolute; left:4px; color:#FFC75F; font-weight:700; }
+.steps { counter-reset: s; max-width:620px; margin:0 auto; }
+.steps li { list-style:none; counter-increment:s; padding:14px 0 14px 56px; position:relative; }
+.steps li:before { content: counter(s); position:absolute; left:0; top:12px; width:38px; height:38px;
+  border-radius:10px; background:rgba(124,108,255,.18); color:#B4AAFF; font-weight:700;
+  display:flex; align-items:center; justify-content:center; font-size:17px; }
+.faq { max-width:680px; margin:0 auto; }
+.faq details { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 20px; margin-bottom:10px; }
+.faq summary { cursor:pointer; font-weight:600; }
+.faq p { color:var(--dim); margin-top:10px; font-size:15px; }
+.cta { text-align:center; padding: 60px 0 90px;
+  background: radial-gradient(ellipse 60% 80% at 50% 110%, rgba(255,107,157,.15), transparent); }
+footer { text-align:center; color:var(--dim); font-size:13px; padding: 26px 0; border-top:1px solid var(--border); }
+@media(max-width:600px){ .hero{padding:50px 0 30px} .btn{width:100%;} }
+</style>
+</head>
+<body>
+
+<div class="hero wrap">
+  <div class="kicker">1С:Предприятие 8.3 · Схемы компоновки данных</div>
+  <h1>10 готовых СКД-отчётов</h1>
+  <p class="sub">Перестань собирать типовые отчёты по 40 минут. Скачай пакет, загрузи XML в конфигуратор — и отчёт работает. Итоги, периоды, отборы и оформление уже настроены.</p>
+  <span class="badge">⚡ Подключение за 2 минуты · XML + исходники</span><br>
+  <a class="btn" href="NOWPAYMENTS_LINK_PLACEHOLDER">Купить за $19</a>
+  <p class="price-note">Оплата криптовалютой (BTC, ETH, USDT и др.) · Мгновенная выдача файла</p>
+</div>
+
+<section class="wrap">
+  <h2>Что внутри пакета</h2>
+  <div class="grid">
+    <div class="card"><b>📊 Матрица продаж</b><span>Организация → клиент → товар, подсветка крупных сделок</span></div>
+    <div class="card"><b>📦 Остатки на складах</b><span>С автоматической подсветкой отрицательных остатков</span></div>
+    <div class="card"><b>💰 Взаиморасчёты</b><span>Дебиторка / кредиторка / сальдо по контрагентам</span></div>
+    <div class="card"><b>💵 ДДС по статьям</b><span>Движение денег с группировкой по видам движения</span></div>
+    <div class="card"><b>🏆 ABC-анализ</b><span>Автоматические группы A/B/C, 2 варианта отчёта</span></div>
+    <div class="card"><b>📈 Динамика по месяцам</b><span>+ расчёт среднего чека</span></div>
+    <div class="card"><b>🔥 Топ-10 товаров</b><span>По выручке за период</span></div>
+    <div class="card"><b>👤 Продажи по менеджерам</b><span>Сводно и с детализацией по клиентам</span></div>
+    <div class="card"><b>🏷️ Прайс-лист</b><span>Срез последних цен из регистра сведений</span></div>
+    <div class="card"><b>🚚 Закупки</b><span>По поставщикам + расчёт средней цены</span></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>В каждом отчёте уже настроено</h2>
+  <ul class="checks">
+    <li>Запрос к типовому регистру накопления 1С 8.3</li>
+    <li>Роли полей (измерения/ресурсы) и итоги по всем суммам</li>
+    <li>Параметр периода: «прошлый месяц», «квартал», «год» — в один клик</li>
+    <li>Варианты настроек, отборы и сортировки</li>
+    <li>Условное оформление — проблемные строки подсвечиваются сами</li>
+    <li>Бонус: исходники в JSON — легко доработать схему под себя</li>
+  </ul>
+</section>
+
+<section class="wrap">
+  <h2>Как подключить — 3 шага</h2>
+  <ol class="steps">
+    <li>Создай отчёт в конфигураторе, добавь макет типа «Схема компоновки данных»</li>
+    <li>Загрузи XML из файла пакета (нужный отчёт — 10 файлов на выбор)</li>
+    <li>Обнови поля и настройки — готово, отчёт работает</li>
+  </ol>
+</section>
+
+<section class="wrap">
+  <h2>Частые вопросы</h2>
+  <div class="faq">
+    <details><summary>Подойдёт ли для моей конфигурации?</summary><p>Схемы используют типовые регистры (Продажи, ТоварыНаСкладах, Взаиморасчеты, ДДС, ЦеныНоменклатуры). Если имя регистра в вашей базе отличается — меняется одна строка запроса, в комплекте инструкция.</p></details>
+    <details><summary>Как проходит оплата и получение файла?</summary><p>Жмёте «Купить» → выбираете криптовалюту → оплачиваете → сразу получаете ссылку на скачивание ZIP-архива. Всё автоматически, 24/7.</p></details>
+    <details><summary>Какая версия 1С нужна?</summary><p>1С:Предприятие 8.3, любые режимы (файловая и клиент-серверная).</p></details>
+    <details><summary>Что если отчёт не подойдёт?</summary><p>Напишите мне в Telegram — разберём вашу конфигурацию и адаптируем схему.</p></details>
+  </div>
+</section>
+
+<div class="cta">
+  <a class="btn" href="NOWPAYMENTS_LINK_PLACEHOLDER">Скачать пакет за $19</a>
+  <p class="price-note">Оплата криптой · Файл выдаётся сразу после оплаты</p>
+</div>
+
+<footer>© 2026 · 1C SKD Reports Pack · Поддержка: Telegram</footer>
+</body>
+</html>
